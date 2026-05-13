@@ -19,10 +19,11 @@ public:
         this->quantity = quantity;
     }
 
+    virtual ~Product() = default;
+
     virtual double calculateDiscount() = 0;
 
-    virtual void showInfo()
-    {
+    virtual void showInfo()const{
         cout << "ID: " << id << endl;
         cout << "Name: " << name << endl;
         cout << "Price: " << price << endl;
