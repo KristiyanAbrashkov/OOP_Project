@@ -14,7 +14,7 @@ protected:
     int quantity;
 
 public:
-    Product(const int id, const string& name, double price, int quantity): id(id), name(name){
+    Product(int id, string name, double price, int quantity): id(id), name(name){
         this->price = price;
         this->quantity = quantity;
     }
