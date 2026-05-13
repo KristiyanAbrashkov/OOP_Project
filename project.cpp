@@ -19,9 +19,9 @@ public:
         this->quantity = quantity;
     }
 
-    virtual ~Product() = default;
+    virtual ~Product(){}
 
-    virtual double calculateDiscount() = 0;
+    virtual double calculateDiscount() const = 0;
 
     virtual void showInfo()const{
         cout << "ID: " << id << endl;
@@ -40,6 +40,26 @@ public:
 
     void setQuantity(int quantity){
         this->quantity = quantity;
+    }
+};
+
+class FoodProduct : public Product
+{
+public:
+    FoodProduct(int id, string name, double price, int quantity): Product(id, name, price, quantity){}
+
+    double calculateDiscount()const override{
+        return price * 0.90;
+    }
+};
+
+class ElectronicProduct : public Product
+{
+public:
+    ElectronicProduct(int id, string name, double price, int quantity): Product(id, name, price, quantity){}
+
+    double calculateDiscount()const override{
+        return price * 0.80;
     }
 };
 
