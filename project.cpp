@@ -5,6 +5,43 @@
 
 using namespace std;
 
+class Product
+{
+protected:
+    const int id;
+    const string name;
+    double price;
+    int quantity;
+
+public:
+    Product(const int id, const string& name, double price, int quantity): id(id), name(name){
+        this->price = price;
+        this->quantity = quantity;
+    }
+
+    virtual double calculateDiscount() = 0;
+
+    virtual void showInfo()
+    {
+        cout << "ID: " << id << endl;
+        cout << "Name: " << name << endl;
+        cout << "Price: " << price << endl;
+        cout << "Quantity: " << quantity << endl;
+    }
+
+    int getId() const{
+        return id;
+    }
+
+    int getQuantity() const{
+        return quantity;
+    }
+
+    void setQuantity(int quantity){
+        this->quantity = quantity;
+    }
+};
+
 int main()
 {
     int choice;
