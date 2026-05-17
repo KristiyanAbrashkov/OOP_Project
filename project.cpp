@@ -126,8 +126,34 @@ int main(){
                 break;
             }
         }
+    }else if(choice == 4){
+    int id;
+    int buyQuantity;
+
+    cout << "Enter product ID: ";
+    cin >> id;
+
+    cout << "Quantity: ";
+    cin >> buyQuantity;
+
+    bool found = false;
+
+    for(Product* product : products){
+        if(product->getId() == id){
+            found = true;
+
+            if(buyQuantity <= product->getQuantity()){
+                    product->setQuantity(product->getQuantity() - buyQuantity);
+                    double total = product->calculateDiscount() * buyQuantity;
+                    cout << "Purchase successful!\n";
+                    cout << "Total: " << total << " lv\n";
+                }else cout << "Not enough quantity!\n";
+            }
+        }
+        if(!found) cout << "Product not found!\n";
     }
+
     for(Product* product : products){delete product;}
-    
+
     return 0;
 }
