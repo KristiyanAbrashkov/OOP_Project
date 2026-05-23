@@ -201,6 +201,24 @@ void updateProduct(vector<Product*>& products){
     cout << "Product not found!\n";
 }
 
+void searchProduct(const vector<Product*>& products){
+    string keyword;
+    cout << "Enter name or category to search: ";
+    cin >> keyword;
+
+    bool found = false;
+
+    for(Product* product : products){
+        if(product->getName() == keyword){
+            cout << "-------------------\n";
+            product->showInfo();
+            found = true;
+        }
+    }
+
+    if(!found) cout << "No matching products found!\n";
+}
+
 int main(){
     vector<Product*> products;
     int choice;
@@ -212,7 +230,8 @@ int main(){
         cout << "3. Delete product\n";
         cout << "4. Update product\n";
         cout << "5. Buy product\n";
-        cout << "6. Exit\n";
+        cout << "6. Search product\n";
+        cout << "7. Exit\n";
         cout << "Choose: ";
         cin >> choice;
 
@@ -221,8 +240,9 @@ int main(){
         else if(choice == 3) deleteProduct(products);
         else if(choice == 4) updateProduct(products);
         else if(choice == 5) buyProduct(products);
+        else if(choice == 6) searchProduct(products);
         
-    } while(choice != 5);
+    } while(choice != 7);
 
    
     for(Product* product : products){delete product;}
