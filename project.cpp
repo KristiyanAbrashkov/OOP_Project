@@ -40,6 +40,14 @@ public:
     void setQuantity(int quantity){
         this->quantity = quantity;
     }
+
+    void setPrice(double price){
+    this->price = price;
+    }
+
+    string getName() const{
+    return name;
+    }
 };
 
 class FoodProduct : public Product{
@@ -162,6 +170,37 @@ void buyProduct(vector<Product*>& products){
     cout << "Product not found!\n";
 }
 
+void updateProduct(vector<Product*>& products){
+    int id;
+
+    cout << "Enter product ID: ";
+    cin >> id;
+
+    for(Product* product : products)
+    {
+        if(product->getId() == id)
+        {
+            double newPrice;
+            int newQuantity;
+
+            cout << "New price: ";
+            cin >> newPrice;
+
+            cout << "New quantity: ";
+            cin >> newQuantity;
+
+            product->setPrice(newPrice);
+            product->setQuantity(newQuantity);
+
+            cout << "Product updated successfully!\n";
+
+            return;
+        }
+    }
+
+    cout << "Product not found!\n";
+}
+
 int main(){
     vector<Product*> products;
     int choice;
@@ -171,15 +210,17 @@ int main(){
         cout << "1. Add product\n";
         cout << "2. Show products\n";
         cout << "3. Delete product\n";
-        cout << "4. Buy product\n";
-        cout << "5. Exit\n";
+        cout << "4. Update product\n";
+        cout << "5. Buy product\n";
+        cout << "6. Exit\n";
         cout << "Choose: ";
         cin >> choice;
 
         if(choice == 1) addProduct(products);
         else if(choice == 2) showProducts(products);
         else if(choice == 3) deleteProduct(products);
-        else if(choice == 4) buyProduct(products);
+        else if(choice == 4) updateProduct(products);
+        else if(choice == 5) buyProduct(products);
         
     } while(choice != 5);
 
