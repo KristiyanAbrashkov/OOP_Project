@@ -22,14 +22,6 @@ public:
 
     virtual double calculateDiscount() const = 0;
 
-    virtual void showInfo()const{
-        cout << "ID: " << id << endl;
-        cout << "Name: " << name << endl;
-        cout << "Price: " << price << endl;
-        cout << "Discount price: " << calculateDiscount() << endl;
-        cout << "Quantity: " << quantity << endl;
-    }
-
     int getId() const{
         return id;
     }
@@ -49,6 +41,16 @@ public:
     string getName() const{
     return name;
     }
+
+    friend ostream& operator<<(ostream& out, const Product& product){
+    out << "ID: " << product.id << endl;
+    out << "Name: " << product.name << endl;
+    out << "Price: " << product.price << endl;
+    out << "Discount price: " << product.calculateDiscount() << endl;
+    out << "Quantity: " << product.quantity << endl;
+
+    return out;
+}
 };
 
 class FoodProduct : public Product{
@@ -110,7 +112,7 @@ void showProducts(const vector<Product*>& products){
     for(Product* product : products)
     {
         cout << "-------------------\n";
-        product->showInfo();
+        cout << *product;
     }
 }
 
@@ -213,7 +215,7 @@ void searchProduct(const vector<Product*>& products){
     for(Product* product : products){
         if(product->getName() == keyword){
             cout << "-------------------\n";
-            product->showInfo();
+            cout << *product;
             found = true;
         }
     }
