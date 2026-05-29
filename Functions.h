@@ -19,4 +19,8 @@ void buyProduct(vector<Product*>& products);
 
 void searchProduct(const vector<Product*>& products);
 
+void showLowStockProducts(const vector<Product*>& products);
+
+void showInventoryValue(const vector<Product*>& products);
+
 #endif

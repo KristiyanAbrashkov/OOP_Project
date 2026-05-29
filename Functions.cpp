@@ -157,3 +157,38 @@ void searchProduct(const vector<Product*>& products){
 
     if(!found) cout << "No matching products found!\n";
 }
+
+void showLowStockProducts(const vector<Product*>& products){
+    bool found = false;
+
+    for(Product* product : products){
+
+        if(product->getQuantity() < 5){
+
+            cout << "-------------------\n";
+
+            cout << *product;
+
+            cout << "Low stock warning!\n";
+
+            found = true;
+        }
+    }
+
+    if(!found){
+        cout << "No low stock products found!\n";
+    }
+}
+
+void showInventoryValue(const vector<Product*>& products){
+
+    double total = 0;
+
+    for(Product* product : products){
+
+        total += product->getPrice() * product->getQuantity();
+    }
+
+    cout << "Total inventory value: "
+         << total << " lv\n";
+}

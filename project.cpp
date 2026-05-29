@@ -19,9 +19,9 @@ int main(){
         cout << "4. Update product\n";
         cout << "5. Buy product\n";
         cout << "6. Search product\n";
-        //cout << "7. Show low stock\n";
-        //cout << "8. Show inventory value\n";
-        cout << "7. Exit\n";
+        cout << "7. Show low stock\n";
+        cout << "8. Show inventory value\n";
+        cout << "9. Exit\n";
         cout << "Choose: ";
         cin >> choice;
 
@@ -31,8 +31,10 @@ int main(){
         else if(choice == 4) updateProduct(products);
         else if(choice == 5) buyProduct(products);
         else if(choice == 6) searchProduct(products);
+        else if(choice == 7) showLowStockProducts(products);
+        else if(choice == 8) showInventoryValue(products);
 
-    } while(choice != 7);
+    } while(choice != 9);
 
     for(Product* product : products){
         delete product;
