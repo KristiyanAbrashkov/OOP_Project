@@ -9,6 +9,8 @@ using namespace std;
 int main(){
     vector<Product*> products;
 
+    loadProductsFromFile(products);
+
     int choice;
 
     do{
@@ -25,11 +27,23 @@ int main(){
         cout << "Choose: ";
         cin >> choice;
 
-        if(choice == 1) addProduct(products);
+        if(choice == 1){
+            addProduct(products);
+            saveProductsToFile(products);
+        }
         else if(choice == 2)showProducts(products);
-        else if(choice == 3) deleteProduct(products);
-        else if(choice == 4) updateProduct(products);
-        else if(choice == 5) buyProduct(products);
+        else if(choice == 3){
+            deleteProduct(products);
+            saveProductsToFile(products);
+        }
+        else if(choice == 4){
+            updateProduct(products);
+            saveProductsToFile(products);
+        }
+        else if(choice == 5){
+            buyProduct(products);
+            saveProductsToFile(products);
+        }
         else if(choice == 6) searchProduct(products);
         else if(choice == 7) showLowStockProducts(products);
         else if(choice == 8) showInventoryValue(products);

@@ -23,4 +23,8 @@ void showLowStockProducts(const vector<Product*>& products);
 
 void showInventoryValue(const vector<Product*>& products);
 
+void saveProductsToFile(const vector<Product*>& products);
+
+void loadProductsFromFile(vector<Product*>& products);
+
 #endif

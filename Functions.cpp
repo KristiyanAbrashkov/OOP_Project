@@ -3,6 +3,7 @@
 #include "ElectronicProduct.h"
 
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
@@ -20,10 +21,22 @@ void addProduct(vector<Product*>& products){
 
     cout << "ID: ";
     cin >> id;
+    for(Product* product : products){
+        if(product->getId() == id){
+            cout << "Product with this ID already exists!\n";
+            return;
+        }
+    }
 
     cout << "Name: ";
     cin >> name;
-
+    for(Product* product : products){
+        if(product->getName() == name){
+            cout << "Product with this name already exists!\n";
+            return;
+        }
+    }
+    
     cout << "Price: ";
     cin >> price;
 
@@ -44,8 +57,7 @@ void addProduct(vector<Product*>& products){
 }
 
 void showProducts(const vector<Product*>& products){
-    for(Product* product : products)
-    {
+    for(Product* product : products){
         cout << "-------------------\n";
         cout << *product;
     }
@@ -57,10 +69,8 @@ void deleteProduct(vector<Product*>& products){
     cout << "Enter ID to delete: ";
     cin >> id;
 
-    for(size_t i = 0; i < products.size(); i++)
-    {
-        if(products[i]->getId() == id)
-        {
+    for(size_t i = 0; i < products.size(); i++){
+        if(products[i]->getId() == id){
             delete products[i];
 
             products.erase(products.begin() + i);
@@ -84,21 +94,16 @@ void buyProduct(vector<Product*>& products){
     cout << "Quantity: ";
     cin >> buyQuantity;
 
-    for(Product* product : products)
-    {
-        if(product->getId() == id)
-        {
-            if(buyQuantity <= product->getQuantity())
-            {
+    for(Product* product : products){
+        if(product->getId() == id){
+            if(buyQuantity <= product->getQuantity()){
                 product->setQuantity(product->getQuantity() - buyQuantity);
 
                 double total = product->calculateDiscount() * buyQuantity;
 
                 cout << "Purchase successful!\n";
                 cout << "Total: " << total << " lv\n";
-            }
-            else
-            {
+            } else{
                 cout << "Not enough quantity!\n";
             }
 
@@ -115,10 +120,8 @@ void updateProduct(vector<Product*>& products){
     cout << "Enter product ID: ";
     cin >> id;
 
-    for(Product* product : products)
-    {
-        if(product->getId() == id)
-        {
+    for(Product* product : products){
+        if(product->getId() == id){
             double newPrice;
             int newQuantity;
 
@@ -191,4 +194,52 @@ void showInventoryValue(const vector<Product*>& products){
 
     cout << "Total inventory value: "
          << total << " lv\n";
+}
+
+void saveProductsToFile(const vector<Product*>& products){
+    ofstream file("products.txt");
+
+    if(!file){
+        cout << "File could not be opened!\n";
+        return;
+    }
+
+    for(Product* product : products){
+        int type;
+
+        if(dynamic_cast<FoodProduct*>(product)){
+            type = 1;
+        } else {
+            type = 2;
+        }
+
+        file << type << " " << product->getId() << " " << product->getName() << " " << product->getPrice() << " " << product->getQuantity() << endl;
+    }
+
+    file.close();
+}
+
+void loadProductsFromFile(vector<Product*>& products){
+    ifstream file("products.txt");
+
+    if(!file){
+        return;
+    }
+
+    int type;
+    int id;
+    string name;
+    double price;
+    int quantity;
+
+    while(file >> type >> id >> name >> price >> quantity){
+        if(type == 1){
+            products.push_back(new FoodProduct(id, name, price, quantity));
+        }
+        else if(type == 2){
+            products.push_back(new ElectronicProduct(id, name, price, quantity));
+        }
+    }
+
+    file.close();
 }
